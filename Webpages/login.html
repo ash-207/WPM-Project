@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gigzy - Login</title>
+  <link rel="stylesheet" href="login_auth.css">
+</head>
+<body>
+  <div class="auth-container">
+    <h1 class="logo">Gigzy</h1>
+    <p class="tagline">Find gigs. Build skills. Get noticed.</p>
+    
+    <div class="auth-card">
+      <h2>Login</h2>
+      <form>
+        <input type="email" placeholder="Email" required>
+        <input type="password" placeholder="Password" required>
+        <button type="submit" class="btn-primary">Login</button>
+      </form>
+      <p class="switch">Don't have an account? <a href="register.html">Sign up</a></p>
+    </div>
+  </div>
+<script>
+  function fadeIn() {
+    document.body.classList.add("fade-in");
+  }
+
+  // Initial load
+  document.addEventListener("DOMContentLoaded", fadeIn);
+
+  // Back/Forward navigation (from bfcache)
+  window.addEventListener("pageshow", (event) => {
+    if (event.persisted) {
+      fadeIn();
+    }
+  });
+
+  // Fade-out before navigating
+  function navigateWithFade(target) {
+    document.body.classList.remove("fade-in");
+    setTimeout(() => {
+      window.location.href = target;
+    }, 500);
+  }
+
+  // Apply fade-out to internal links
+  document.querySelectorAll("a").forEach(link => {
+    if (link.hostname === window.location.hostname) {
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
+        navigateWithFade(link.href);
+      });
+    }
+  });
+</script>
+
+</body>
+</html>

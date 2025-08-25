@@ -19,6 +19,7 @@ app.get("/explore", (req, res) => {
   res.sendFile(path.join(process.cwd(), "Webpages", "explore.html"));
 });
 
+
 app.get("/dashboard", (req, res) => {
   res.sendFile(path.join(process.cwd(), "Webpages", "dashboard.html"));
 });

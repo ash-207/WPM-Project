@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gigzy - Explore Gigs</title>
+  <link rel="stylesheet" href="explore_2_style.css">
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>
+    /* Basic Reset */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; background: #fff; }
+
+    /* Navbar */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 40px;
+      border-bottom: 1px solid #eee;
+    }
+    nav h1 { color: #6b21a8; font-size: 24px; }
+    nav .links a {
+      margin: 0 12px;
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+    }
+    nav .user {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    nav button {
+      background: #ef4444;
+      border: none;
+      color: white;
+      padding: 6px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    /* Search Section */
+    .search-section {
+      text-align: center;
+      padding: 30px 20px;
+    }
+    .search-section input {
+      width: 60%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px 0 0 6px;
+    }
+    .search-section button {
+      padding: 12px 20px;
+      border: none;
+      background: #7c3aed;
+      color: white;
+      border-radius: 0 6px 6px 0;
+      cursor: pointer;
+    }
+    .filters {
+      margin-top: 15px;
+    }
+    .filters button {
+      margin: 5px;
+      padding: 8px 14px;
+      border: 1px solid #ccc;
+      border-radius: 20px;
+      background: #fff;
+      cursor: pointer;
+    }
+
+    /* Layout */
+    .container {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 20px;
+      padding: 20px 40px;
+    }
+
+    /* Gig Cards */
+    .gig-card {
+      border: 1px solid #eee;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+      background: #fafafa;
+    }
+    .gig-card h3 {
+      color: #2563eb;
+      margin-bottom: 8px;
+    }
+    .gig-card p {
+      margin: 6px 0;
+      color: #555;
+    }
+    .gig-card button {
+      margin-top: 10px;
+      padding: 8px 14px;
+      border: 1px solid #333;
+      background: white;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    /* Map */
+    #map {
+      height: 500px;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+     <!-- Navbar -->
+  <header class="navbar">
+    <h1 class="logo">Gigzy</h1>
+    <nav>
+      <a href="landing_page.html">Home</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="#">Saved Gigs</a>
+      <a href="#">Resume Tools</a>
+      <a href="about_page.html">About</a>
+      <a href="#">Contact</a>
+    </nav>
+    <div class="user-info">
+        <span class="username">Hi, Aayush</span>
+        <button class="logout-btn">Logout</button>
+      </div>
+  </header>
+
+  <section class="hero">
+    <h2>Explore Gigs 🔎</h2>
+    <div class="search-bar">
+      <input type="text" placeholder="Search gigs, internships, part-time...">
+      <button class="search-btn">Search</button>
+    </div>
+    <div class="filters">
+      <button class="filter-btn"><span>📍</span> Location</button>
+      <button class="filter-btn"><span>🎯</span> Category</button>
+      <button class="filter-btn"><span>💰</span> Pay</button>
+      <button class="filter-btn"><span>⏰</span> Part-Time</button>
+    </div>
+  </section>
+
+  <!-- Main Layout -->
+  <div class="container">
+    <!-- Left Column: Gigs -->
+<div class="gig-list">
+  <div class="gig-card" id="gig-0">
+    <h3>Social Media Intern</h3>
+    <p>📍 Pune • Local Café</p>
+    <p class="desc">Manage social media posts & engagement for a café chain.</p>
+    <button class="btn-secondary">Apply Now</button>
+  </div>
+
+  <div class="gig-card" id="gig-1">
+    <h3>Event Musician</h3>
+    <p>📍 Bangalore • Downtown Club</p>
+    <p class="desc">Looking for a guitarist for Friday night gigs at our club.</p>
+    <button class="btn-secondary">Apply Now</button>
+  </div>
+
+  <div class="gig-card" id="gig-2">
+    <h3>Part-Time Assistant</h3>
+    <p>📍 Delhi • Startup Hub</p>
+    <p class="desc">Assist with admin tasks and event coordination for a startup.</p>
+    <button class="btn-secondary">Apply Now</button>
+  </div>
+
+  <div class="gig-card" id="gig-3">
+    <h3>Content Writer</h3>
+    <p>📍 Remote • EdTech Startup</p>
+    <p class="desc">Write engaging blog posts & content for online learning platform.</p>
+    <button class="btn-secondary">Apply Now</button>
+  </div>
+
+  <div class="gig-card" id="gig-4">
+  <h3>Campus Ambassador</h3>
+  <p>📍 Mumbai • Tech Fest</p>
+  <p class="desc">Promote our annual tech fest in your college & manage registrations.</p>
+  <button class="btn-secondary">Apply Now</button>
+</div>
+
+<div class="gig-card" id="gig-5">
+  <h3>Graphic Designer</h3>
+  <p>📍 Remote • Fashion Startup</p>
+  <p class="desc">Design posters, Instagram creatives, and branding material.</p>
+  <button class="btn-secondary">Apply Now</button>
+</div>
+
+<div class="gig-card" id="gig-6">
+  <h3>Tutoring (Math/Science)</h3>
+  <p>📍 Hyderabad • High School Students</p>
+  <p class="desc">Help 9th–10th graders with math & science concepts after school.</p>
+  <button class="btn-secondary">Apply Now</button>
+</div>
+
+<div class="gig-card" id="gig-7">
+  <h3>Food Delivery Partner</h3>
+  <p>📍 Chennai • Local Restaurants</p>
+  <p class="desc">Flexible hours delivering food orders for partnered restaurants.</p>
+  <button class="btn-secondary">Apply Now</button>
+</div>
+
+</div>
+
+<!-- Right Column: Map -->
+<div class="gig-map">
+  <h2>Gig Map 🗺️</h2>
+  <div id="map"></div>
+</div>
+
+
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    // Initialize Map
+var map = L.map('map').setView([20.5937, 78.9629], 5);
+
+// Add Tile Layer
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '© OpenStreetMap contributors'
+}).addTo(map);
+
+// Gig data
+const gigs = [
+  {
+    id: 0,
+    title: "Social Media Intern",
+    location: "Pune • Local Café",
+    desc: "Manage social media posts & engagement for a café chain.",
+    coords: [18.5204, 73.8567]
+  },
+  {
+    id: 1,
+    title: "Event Musician",
+    location: "Bangalore • Downtown Club",
+    desc: "Looking for a guitarist for Friday night gigs at our club.",
+    coords: [12.9716, 77.5946]
+  },
+  {
+    id: 2,
+    title: "Part-Time Assistant",
+    location: "Delhi • Startup Hub",
+    desc: "Assist with admin tasks and event coordination for a startup.",
+    coords: [28.6139, 77.2090]
+  },
+  {
+    id: 3,
+    title: "Content Writer",
+    location: "Remote • EdTech Startup",
+    desc: "Write engaging blog posts & content for online learning platform.",
+    coords: [20.5937, 78.9629] // India center (since remote)
+  },
+  {
+    id: 4,
+    title: "Campus Ambassador",
+    location: "Mumbai • Tech Fest",
+    desc: "Promote our annual tech fest in your college & manage registrations.",
+    coords: [19.0760, 72.8777]
+  },
+  {
+    id: 5,
+    title: "Graphic Designer",
+    location: "Remote • Fashion Startup",
+    desc: "Design posters, Instagram creatives, and branding material.",
+    coords: [22.9734, 78.6569] // Generic India location (remote)
+  },
+  {
+    id: 6,
+    title: "Tutoring (Math/Science)",
+    location: "Hyderabad • High School Students",
+    desc: "Help 9th–10th graders with math & science concepts after school.",
+    coords: [17.3850, 78.4867]
+  },
+  {
+    id: 7,
+    title: "Food Delivery Partner",
+    location: "Chennai • Local Restaurants",
+    desc: "Flexible hours delivering food orders for partnered restaurants.",
+    coords: [13.0827, 80.2707]
+  }
+];
+
+
+// Store markers so we can access later
+let markers = [];
+const highlightIcon = L.icon({
+  iconUrl: 'https://unpkg.com/leaflet@1.7/dist/images/marker-icon-2x.png',
+  iconSize: [30, 50],
+  iconAnchor: [15, 50],
+  popupAnchor: [1, -34],
+});
+
+// Create markers
+gigs.forEach((gig, index) => {
+  let marker = L.marker(gig.coords).addTo(map)
+    .bindPopup(`<b>${gig.title}</b><br>${gig.location}`);
+  markers.push(marker);
+
+  // Attach events to gig cards (using IDs like gig-0, gig-1, etc.)
+  let gigCard = document.getElementById(`gig-${index}`);
+let lastSelectedMarker = null; // track last highlighted marker
+
+if (gigCard) {
+  // Hover → show title only (no zooming!)
+  gigCard.addEventListener("mouseenter", () => {
+    marker.bindPopup(`<b>${gig.title}</b>`).openPopup();
+  });
+
+  gigCard.addEventListener("mouseleave", () => {
+    marker.closePopup();
+  });
+
+  // Click → fly to + highlight marker
+  gigCard.addEventListener("click", () => {
+    // Reset last highlighted marker
+    if (lastSelectedMarker && lastSelectedMarker !== marker) {
+      lastSelectedMarker.setIcon(new L.Icon.Default()); // restore default
+    }
+
+    // Fly to this gig
+    map.flyTo(gig.coords, 10, { animate: true, duration: 1.2 });
+
+    // Highlight and open popup
+    marker.setIcon(highlightIcon).openPopup();
+
+    // Save this marker as last selected
+    lastSelectedMarker = marker;
+  });
+}
+
+
+});
+  // After the loop, fit map to all markers
+let group = L.featureGroup(markers);
+map.fitBounds(group.getBounds().pad(0.2));
+
+setTimeout(() => {
+  map.fitBounds(group.getBounds().pad(0.2));
+}, 5000); // reset after 5 sec
+
+  </script>
+</body>
+</html>

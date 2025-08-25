@@ -12,10 +12,9 @@
     <h1 class="logo">Gigzy</h1>
     <nav>
       <a href="landing_page.html">Home</a>
-      <a href="explore.html">Explore Gigs</a>
+      <a href="explore_2.html">Explore Gigs</a>
       <a href="about.html">Saved Gigs</a>
       <a href="#">Resume Tools</a>
-      <a href="contact.html">Contact</a>
     </nav>
     <div class="nav-buttons">
       <button class="btn-outline">Login</button>
@@ -80,5 +79,27 @@
       <a href="#">Privacy Policy</a>
     </div>
   </footer>
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // Add fade-in effect when page loads
+    document.body.classList.remove("fade-out");
+
+    // Handle link clicks
+    document.querySelectorAll("a").forEach(link => {
+      if (link.hostname === window.location.hostname) { // internal links only
+        link.addEventListener("click", function (e) {
+          e.preventDefault();
+          const targetUrl = this.href;
+
+          document.body.classList.add("fade-out");
+
+          setTimeout(() => {
+            window.location.href = targetUrl;
+          }, 400); // match CSS transition time
+        });
+      }
+    });
+  });
+</script>
 </body>
 </html>

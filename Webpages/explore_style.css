@@ -209,6 +209,37 @@
 .btn-secondary:hover {
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
+.logout-btn {
+  background: #f74d4d;
+  border: none;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s ease;
+}
+body {
+  opacity: 1;
+  transition: opacity 0.2s ease-in-out;
+}
+.map-section {
+  margin: 2rem 0;
+}
+
+#gigMap {
+  height: 400px;
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+body.fade-out {
+  opacity: 0;
+}
+.logout-btn:hover {
+  background: #e23a3a;
+}
 .main-content {
   padding-top: 50px; /* Adjust this value as needed */
 }
