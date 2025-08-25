@@ -16,12 +16,20 @@ app.get("/about", (req, res) => {
 });
 
 app.get("/explore", (req, res) => {
-  res.sendFile(path.join(process.cwd(), "Webpages", "explore.html"));
+  res.sendFile(path.join(process.cwd(), "Webpages", "explore_2.html"));
 });
 
 
 app.get("/dashboard", (req, res) => {
   res.sendFile(path.join(process.cwd(), "Webpages", "dashboard.html"));
+});
+
+app.get("/dashboard", (req, res) => {
+  res.sendFile(path.join(process.cwd(), "Webpages", "login.html"));
+});
+
+app.get("/dashboard", (req, res) => {
+  res.sendFile(path.join(process.cwd(), "Webpages", "register.html"));
 });
 
 // Start server
