@@ -91,7 +91,7 @@ body.fade-out {
 .hero {
   text-align: center;
   padding: 100px 20px;
-  background: linear-gradient(to right, #f3e8ff, #fdf2f8, #fff);
+  background: linear-gradient(to right,#f3e8ff, #fdf2f8, #fff);
 }
 .hero h2 {
   font-size: 48px;
