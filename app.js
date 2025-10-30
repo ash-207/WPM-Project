@@ -32,6 +32,11 @@ app.get("/dashboard", (req, res) => {
   res.sendFile(path.join(process.cwd(), "Webpages", "register.html"));
 });
 
+app.get("/post-gig", (req, res) => {
+  res.sendFile(path.join(process.cwd(), "Webpages", "post_gig.html"));
+});
+
+
 // Start server
 const port = process.env.PORT || 3000;
 app.listen(port, () => {

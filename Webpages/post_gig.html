@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Post Your Gig - Gigzy</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="post_gig.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="logo">Gigzy</div>
+    <div class="tagline">Post Your Gig and Get It Seen!</div>
+
+    <div class="card">
+      <h2>Post Your Gig</h2>
+      <form id="gigForm">
+        <input type="text" id="title" placeholder="Gig Title" required />
+        <textarea id="description" placeholder="Description" rows="4" required></textarea>
+        <input type="text" id="location" placeholder="Location (City, Area)" required />
+        <input type="url" id="applyLink" placeholder="Link to Apply (https://example.com)" required />
+        <button type="submit" class="btn-primary">Post Gig</button>
+      </form>
+
+      <p class="success-message" id="successMsg"></p>
+
+      <div class="switch">
+        <span>Want to explore gigs? <a href="explore_2.html">Click here</a></span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('gigForm');
+    const successMsg = document.getElementById('successMsg');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const gig = {
+        title: document.getElementById('title').value,
+        description: document.getElementById('description').value,
+        location: document.getElementById('location').value,
+        applyLink: document.getElementById('applyLink').value,
+      };
+
+      const gigs = JSON.parse(localStorage.getItem('gigs') || '[]');
+      gigs.push(gig);
+      localStorage.setItem('gigs', JSON.stringify(gigs));
+
+      successMsg.textContent = 'Gig posted successfully!';
+      form.reset();
+      setTimeout(() => (successMsg.textContent = ''), 3000);
+    });
+  </script>
+</body>
+</html>
